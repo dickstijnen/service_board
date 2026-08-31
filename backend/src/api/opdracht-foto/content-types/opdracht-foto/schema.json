@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "opdracht_fotos",
+  "info": {
+    "singularName": "opdracht-foto",
+    "pluralName": "opdracht-fotos",
+    "displayName": "Opdracht Foto",
+    "description": "Foto's gekoppeld aan opdrachten"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "bestandsnaam": { "type": "string" },
+    "type": {
+      "type": "enumeration",
+      "enum": ["voor", "na", "algemeen"],
+      "default": "algemeen"
+    },
+    "afbeelding": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "opdracht": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::opdracht.opdracht",
+      "inversedBy": "fotos"
+    }
+  }
+}

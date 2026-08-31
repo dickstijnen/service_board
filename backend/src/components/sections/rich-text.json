@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_sections_rich_texts",
+  "info": {
+    "displayName": "Rich Text",
+    "icon": "align-left",
+    "description": "Formatted prose section (headings, bold, italic, links, lists, quotes). Uses Strapi's Blocks editor. Used in the Page blocks dynamic zone."
+  },
+  "options": {},
+  "attributes": {
+    "content": { "type": "blocks" }
+  }
+}

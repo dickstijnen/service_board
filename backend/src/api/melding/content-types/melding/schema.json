@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meldingen",
+  "info": {
+    "singularName": "melding",
+    "pluralName": "meldingen",
+    "displayName": "Melding",
+    "description": "Activiteitsnotificaties voor gebruikers"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "type": { "type": "string", "required": true },
+    "titel": { "type": "string", "required": true },
+    "bericht": { "type": "text" },
+    "gelezen": { "type": "boolean", "default": false },
+    "container": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::container.container"
+    },
+    "opdracht": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::opdracht.opdracht"
+    },
+    "ontvanger": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

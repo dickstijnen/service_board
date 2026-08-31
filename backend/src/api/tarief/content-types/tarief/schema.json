@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tarieven",
+  "info": {
+    "singularName": "tarief",
+    "pluralName": "tarieven",
+    "displayName": "Tarief",
+    "description": "Prijsmatrix: afvalsoort x containerformaat"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "afval_soort": {
+      "type": "enumeration",
+      "enum": ["puin", "afval", "hout", "grond", "groen"],
+      "required": true
+    },
+    "formaat": {
+      "type": "enumeration",
+      "enum": ["c1m3", "c3m3", "c6m3", "c9m3", "c9m3-g", "c20m3", "c40m3"],
+      "required": true
+    },
+    "prijs": { "type": "decimal", "required": true }
+  }
+}

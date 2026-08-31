@@ -1,0 +1,23 @@
+/* ── Type scale ───────────────────────────────────────────────
+   Headings render in PP Mori (--font-heading). Fluid sizes locked
+   across a 380px → 1440px viewport so all levels scale as one system.
+   Every heading stays ABOVE the 16px body at all widths. To resize a
+   level: nudge its min (mobile px) / max (desktop px) — comment shows
+   the px range. <h1>–<h6> for semantics, or .h1–.h6 for the look on
+   any element. Italic is opt-in (<em>). THIS FILE = type only.
+─────────────────────────────────────────────────────────────── */
+.display,
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: var(--font-heading);
+    line-height: 1.1;
+    text-wrap: balance;
+}
+
+.display { font-size: clamp(4rem, 1.97rem + 8.55vw, 8.75rem); letter-spacing: -0.02em; } /* 64px → 140px — hero/display tier (Mori 400; size + tracking, no bold weight available) */
+h1, .h1 { font-size: clamp(2.25rem, 1.264rem + 4.151vw, 5rem); }     /* 36px → 80px */
+h2, .h2 { font-size: clamp(1.875rem, 1.203rem + 2.830vw, 3.75rem); } /* 30px → 60px */
+h3, .h3 { font-size: clamp(1.5rem, 1.052rem + 1.887vw, 2.75rem); }   /* 24px → 44px */
+h4, .h4 { font-size: clamp(1.25rem, 0.981rem + 1.132vw, 2rem); }     /* 20px → 32px */
+h5, .h5 { font-size: clamp(1.125rem, 0.991rem + 0.566vw, 1.5rem); }  /* 18px → 24px */
+h6, .h6 { font-size: clamp(1rem, 0.910rem + 0.377vw, 1.25rem); }     /* 16px → 20px */

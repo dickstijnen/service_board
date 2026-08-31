@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chauffeur_beschikbaarheid",
+  "info": {
+    "singularName": "chauffeur-beschikbaarheid",
+    "pluralName": "chauffeur-beschikbaarheden",
+    "displayName": "Chauffeur Beschikbaarheid",
+    "description": "Beschikbaarheidskalender per chauffeur"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "datum": { "type": "date", "required": true },
+    "dagdeel": {
+      "type": "enumeration",
+      "enum": ["ochtend", "middag", "avond"],
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["beschikbaar", "niet-beschikbaar", "onzeker"],
+      "default": "beschikbaar",
+      "required": true
+    },
+    "notitie": { "type": "text" },
+    "chauffeur": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

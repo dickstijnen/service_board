@@ -1,0 +1,10 @@
+{
+  "name": "strapi-web-boilerplate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Strapi 5 + Next 16 monorepo boilerplate. Scripts host only — backend and frontend each have their own package.json and dependencies.",
+  "scripts": {
+    "setup": "node scripts/setup.mjs"
+  },
+  "packageManager": "yarn@1.22.22"
+}

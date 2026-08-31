@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "containers",
+  "info": {
+    "singularName": "container",
+    "pluralName": "containers",
+    "displayName": "Container",
+    "description": "Fysieke containers met locatietracking en QR-code"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "container_code": {
+      "type": "string",
+      "unique": true
+    },
+    "formaat": {
+      "type": "enumeration",
+      "enum": ["c1m3", "c3m3", "c6m3", "c9m3", "c9m3-g", "c20m3", "c40m3", "portaal", "haak", "laadflat", "zeecontainer"],
+      "required": true
+    },
+    "gesloten": { "type": "boolean", "default": false },
+    "type_omschrijving": { "type": "string" },
+    "status": {
+      "type": "enumeration",
+      "enum": ["beschikbaar", "onderweg", "geplaatst", "klaar_voor_ophaling", "opgehaald", "onderhoud"],
+      "default": "beschikbaar",
+      "required": true
+    },
+    "huidige_locatie_adres": { "type": "string" },
+    "locatie_lat": { "type": "decimal" },
+    "locatie_lng": { "type": "decimal" },
+    "qr_code_data": { "type": "text" },
+    "opmerkingen": { "type": "text" },
+    "opdrachten": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::opdracht.opdracht",
+      "mappedBy": "container"
+    }
+  }
+}

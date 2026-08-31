@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "facturen",
+  "info": {
+    "singularName": "factuur",
+    "pluralName": "facturen",
+    "displayName": "Factuur",
+    "description": "Facturen gekoppeld aan opdrachten"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "factuur_nummer": { "type": "string", "unique": true, "required": true },
+    "status": {
+      "type": "enumeration",
+      "enum": ["concept", "verzonden", "betaald", "verlopen"],
+      "default": "concept",
+      "required": true
+    },
+    "subtotaal": { "type": "decimal" },
+    "btw_bedrag": { "type": "decimal" },
+    "totaal": { "type": "decimal" },
+    "huur_bedrag": { "type": "decimal" },
+    "extra_huur_bedrag": { "type": "decimal" },
+    "transport_bedrag": { "type": "decimal" },
+    "verwerking_bedrag": { "type": "decimal" },
+    "factuurdatum": { "type": "date" },
+    "vervaldatum": { "type": "date" },
+    "pdf_url": { "type": "string" },
+    "opdracht": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::opdracht.opdracht",
+      "inversedBy": "factuur"
+    },
+    "klant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::klant.klant",
+      "inversedBy": "facturen"
+    }
+  }
+}

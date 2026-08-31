@@ -1,0 +1,146 @@
+/* frontend/src/components/slider/slider-stack.css
+ *
+ * Two-sided reveal states for SliderStack layers (the (a) approach: SliderStack
+ * toggles `.is-selected` / `.is-removed` off the active index, CSS does the rest).
+ * Pure CSS transitions, so incoming + outgoing animate at the SAME TIME in the same
+ * spot — the in/out overlap a moving track can't produce.
+ *
+ * Rebuilt for this boilerplate (our easing, our timings) — NOT lifted.
+ *
+ * THE THREE STATES (this is the bit that matters):
+ *   idle (no class)  → HIDDEN. Not pre-enter — fully clipped/transparent and behind.
+ *                       Without this, every non-active layer stays visible and the
+ *                       last one in the DOM covers the stack (the "always slide 5" bug).
+ *   .is-selected     → OPEN / visible, on top, animates IN (delayed so it lands as
+ *                       the outgoing finishes leaving).
+ *   .is-removed      → the layer that was JUST active; sits ON TOP and animates OUT,
+ *                       revealing the now-selected layer beneath.
+ *
+ * Vars are defined on the scope wrapper (.slider-stack-scope) so a demo/section can
+ * retune globally. They also have fallbacks inline so the rules work even if the
+ * scope class is missing.
+ */
+
+.slider-stack-scope {
+    --slider-ease: cubic-bezier(0.62, 0.05, 0.01, 0.99);
+    --slider-in-delay: 0.45s;
+    --slider-dur: 0.6s;
+}
+
+/* ── Image clip-mask wipe ────────────────────────────────────────────────────
+ * idle: clipped shut + behind (z 0). selected: open, z 1. removed: starts open,
+ * sits on top (z 2), wipes shut left→right revealing the selected one beneath. */
+[data-slider-mask] {
+    z-index: 0;
+    clip-path: inset(0 0 0 0); /* OPEN by default — visible, behind */
+    transition: clip-path var(--slider-dur, 0.6s) var(--slider-ease, ease);
+}
+[data-slider-mask] img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    scale: 1.15;
+    transform-origin: center;
+    transition: scale var(--slider-dur, 0.6s) var(--slider-ease, ease);
+}
+.is-selected[data-slider-mask] {
+    z-index: 1;
+}
+.is-selected[data-slider-mask] img {
+    scale: 1;
+}
+.is-removed[data-slider-mask] {
+    z-index: 2; /* leaving layer sits ON TOP … */
+    clip-path: inset(0 100% 0 0); /* … and wipes shut left→right, revealing selected beneath */
+}
+.is-removed[data-slider-mask] img {
+    scale: 1.15;
+}
+[data-dir="prev"] .is-removed[data-slider-mask] {
+    clip-path: inset(0 0 0 100%);
+}
+
+/* ── Rise (translateY) — for headings / body copy ────────────────────────────
+ * idle: down + transparent. selected: rises to 0, delayed. removed: up + out. */
+[data-slider-rise] {
+    opacity: 0;
+    transform: translateY(16px);
+    pointer-events: none;
+    transition: opacity 0.4s var(--slider-ease, ease), transform var(--slider-dur, 0.6s) var(--slider-ease, ease);
+}
+.is-selected [data-slider-rise],
+.is-selected[data-slider-rise] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: opacity 0.4s var(--slider-in-delay, 0.45s) var(--slider-ease, ease), transform var(--slider-dur, 0.6s) var(--slider-in-delay, 0.45s) var(--slider-ease, ease);
+}
+.is-removed [data-slider-rise],
+.is-removed[data-slider-rise] {
+    opacity: 0;
+    transform: translateY(-16px);
+}
+
+/* ── Plain fade ──────────────────────────────────────────────────────────────*/
+[data-slider-fade] {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--slider-dur, 0.6s) var(--slider-ease, ease);
+}
+.is-selected [data-slider-fade],
+.is-selected[data-slider-fade] {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity var(--slider-dur, 0.6s) var(--slider-in-delay, 0.45s) var(--slider-ease, ease);
+}
+.is-removed [data-slider-fade],
+.is-removed[data-slider-fade] {
+    opacity: 0;
+}
+
+/* ── Per-word masked roll — split heading inside a stack layer ───────────────*/
+[data-slider-words] .split-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+}
+[data-slider-words] .split-word > * {
+    display: inline-block;
+    transform: translateY(120%);
+    transition: transform 0.5s var(--slider-ease, ease);
+}
+.is-selected [data-slider-words] .split-word > * {
+    transform: translateY(0);
+}
+.is-removed [data-slider-words] .split-word > * {
+    transform: translateY(-120%);
+}
+@media (prefers-reduced-motion: no-preference) {
+    .is-selected [data-slider-words] .split-word:nth-child(1) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.00s); }
+    .is-selected [data-slider-words] .split-word:nth-child(2) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.03s); }
+    .is-selected [data-slider-words] .split-word:nth-child(3) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.06s); }
+    .is-selected [data-slider-words] .split-word:nth-child(4) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.09s); }
+    .is-selected [data-slider-words] .split-word:nth-child(5) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.12s); }
+    .is-selected [data-slider-words] .split-word:nth-child(6) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.15s); }
+    .is-selected [data-slider-words] .split-word:nth-child(7) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.18s); }
+    .is-selected [data-slider-words] .split-word:nth-child(8) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.21s); }
+    .is-selected [data-slider-words] .split-word:nth-child(n+9) > * { transition-delay: calc(var(--slider-in-delay, 0.45s) + 0.24s); }
+}
+
+/* ── Reduced motion: snap, no movement — only the selected layer shows ───────*/
+@media (prefers-reduced-motion: reduce) {
+    [data-slider-mask],
+    [data-slider-rise],
+    [data-slider-fade],
+    [data-slider-words] .split-word > * {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+    [data-slider-mask] { clip-path: inset(0 100% 0 0); }
+    .is-selected[data-slider-mask] { clip-path: inset(0 0 0 0); z-index: 1; }
+    .is-removed[data-slider-mask] { clip-path: inset(0 100% 0 0); }
+    [data-slider-rise], [data-slider-fade] { opacity: 0; }
+    .is-selected [data-slider-rise], .is-selected[data-slider-rise],
+    .is-selected [data-slider-fade], .is-selected[data-slider-fade] { opacity: 1; }
+}

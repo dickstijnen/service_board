@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "klanten",
+  "info": {
+    "singularName": "klant",
+    "pluralName": "klanten",
+    "displayName": "Klant",
+    "description": "Klantgegevens inclusief factuur- en leveradres"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "bedrijfsnaam": { "type": "string" },
+    "voornaam": { "type": "string" },
+    "achternaam": { "type": "string" },
+    "contactpersoon": { "type": "string" },
+    "telefoon": { "type": "string" },
+    "email": { "type": "email" },
+    "straat": { "type": "string" },
+    "huisnummer": { "type": "string" },
+    "postcode": { "type": "string" },
+    "plaatsnaam": { "type": "string" },
+    "leveradres_zelfde": { "type": "boolean", "default": true },
+    "lever_straat": { "type": "string" },
+    "lever_huisnummer": { "type": "string" },
+    "lever_postcode": { "type": "string" },
+    "lever_plaatsnaam": { "type": "string" },
+    "btw_nummer": { "type": "string" },
+    "kvk_nummer": { "type": "string" },
+    "speciaal_tarief": { "type": "boolean", "default": false },
+    "speciaal_tarief_toelichting": { "type": "text" },
+    "opdrachten": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::opdracht.opdracht",
+      "mappedBy": "klant"
+    },
+    "facturen": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::factuur.factuur",
+      "mappedBy": "klant"
+    }
+  }
+}

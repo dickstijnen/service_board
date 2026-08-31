@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_seos",
+  "info": {
+    "displayName": "SEO",
+    "icon": "search",
+    "description": "Reusable SEO/metadata block. Embed in any page content type. Feeds Next generateMetadata (title, description, OG/Twitter, canonical, robots)."
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle":       { "type": "string",  "required": true,  "maxLength": 60 },
+    "metaDescription": { "type": "text",    "required": true,  "maxLength": 160 },
+    "ogImage":         { "type": "media",   "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "canonicalURL":    { "type": "string",  "required": false },
+    "preventIndexing": { "type": "boolean", "default": false,  "required": false }
+  }
+}

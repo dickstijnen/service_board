@@ -1,0 +1,68 @@
+/* Screen-size debug indicator — uncomment to enable while building, delete per-project.
+body:not(.body-wordpress):before {
+    position: fixed;
+    z-index: 2147483647;
+    bottom: 0;
+    right: 0;
+    padding: 0.3333333em 0.5em;
+    font-size: 12px;
+    line-height: 1;
+    font-family: sans-serif;
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 0 0 1px #fff;
+    content: "screen: _";
+}
+@media (min-width: 640px) { body:not(.body-wordpress):before { content: "screen: sm"; } }
+@media (min-width: 768px) { body:not(.body-wordpress):before { content: "screen: md"; } }
+@media (min-width: 1024px) { body:not(.body-wordpress):before { content: "screen: lg"; } }
+@media (min-width: 1280px) { body:not(.body-wordpress):before { content: "screen: xl"; } }
+@media (min-width: 1536px) { body:not(.body-wordpress):before { content: "screen: 2xl"; } }
+*/
+
+:root {
+    --padding-container: 16px;
+    --padding-section: 60px;
+    --parallax-height: 100%;
+    --nav-height: 80px;
+}
+@media (width >= 640px) {
+    :root { --padding-container: 30px; --padding-section: 80px; }
+}
+@media (width >= 1024px) {
+    :root { --padding-container: 56px; --padding-section: 140px; --nav-height: 100px; }
+}
+@media (width >= 1536px) {
+    :root { --padding-container: 64px; --padding-section: 180px; }
+}
+
+.container {
+    max-width: 100% !important;
+    padding-left: var(--padding-container);
+    padding-right: var(--padding-container);
+}
+.py-container {
+    padding-top: var(--padding-container);
+    padding-bottom: var(--padding-container);
+}
+.pb-container {
+    padding-bottom: var(--padding-container);
+}
+section:not([aria-live]),
+.section {
+    padding-top: var(--padding-section);
+    padding-bottom: var(--padding-section);
+}
+.breakout {
+    margin-left: calc(var(--padding-container) * -1);
+    margin-right: calc(var(--padding-container) * -1);
+    width: calc(100% + (var(--padding-container) * 2));
+}
+.breakout-start {
+    margin-left: calc(var(--padding-container) * -1);
+    width: calc(100% + var(--padding-container));
+}
+.breakout-end {
+    margin-right: calc(var(--padding-container) * -1);
+    width: calc(100% + var(--padding-container));
+}

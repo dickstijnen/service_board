@@ -1,0 +1,84 @@
+{
+  "kind": "collectionType",
+  "collectionName": "opdrachten",
+  "info": {
+    "singularName": "opdracht",
+    "pluralName": "opdrachten",
+    "displayName": "Opdracht",
+    "description": "Werkopdrachten: plaatsing, ophaling of wisseling van containers"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "opdracht_nummer": { "type": "integer" },
+    "type": {
+      "type": "enumeration",
+      "enum": ["plaatsing", "ophaling", "wisseling"],
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["gepland", "onderweg", "geplaatst", "opgehaald", "gewisseld", "geannuleerd"],
+      "default": "gepland",
+      "required": true
+    },
+    "afval_soort": {
+      "type": "enumeration",
+      "enum": ["puin", "afval", "hout", "grond", "groen", "gemengd", "overig"]
+    },
+    "adres": { "type": "string" },
+    "postcode": { "type": "string" },
+    "plaatsnaam": { "type": "string" },
+    "locatie_lat": { "type": "decimal" },
+    "locatie_lng": { "type": "decimal" },
+    "datum_gepland": { "type": "date" },
+    "datum_plaatsing": { "type": "date" },
+    "datum_ophaling": { "type": "date" },
+    "datum_wisseling": { "type": "date" },
+    "voorkeur_tijdstip": { "type": "string" },
+    "betaling_type": {
+      "type": "enumeration",
+      "enum": ["factuur", "contant"],
+      "default": "factuur"
+    },
+    "betaling_geind": { "type": "boolean", "default": false },
+    "extra_huur_actief": { "type": "boolean", "default": false },
+    "extra_huur_dagen": { "type": "integer", "default": 0 },
+    "afval_soort_werkelijk": { "type": "string" },
+    "overbeladen": { "type": "boolean", "default": false },
+    "overbeladen_m3": { "type": "decimal" },
+    "andere_materialen": { "type": "boolean", "default": false },
+    "andere_materialen_omschrijving": { "type": "text" },
+    "ophaling_opmerkingen": { "type": "text" },
+    "opmerkingen": { "type": "text" },
+    "handtekening_data": { "type": "text" },
+    "klant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::klant.klant",
+      "inversedBy": "opdrachten"
+    },
+    "container": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::container.container",
+      "inversedBy": "opdrachten"
+    },
+    "chauffeur": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "fotos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::opdracht-foto.opdracht-foto",
+      "mappedBy": "opdracht"
+    },
+    "factuur": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::factuur.factuur",
+      "mappedBy": "opdracht"
+    }
+  }
+}

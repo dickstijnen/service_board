@@ -1,0 +1,39 @@
+# Root .gitignore for the monorepo (frontend + backend)
+# Dependencies
+**/node_modules/
+**/.pnp
+**/.yarn/*
+
+# Build output
+**/.next/
+**/out/
+**/build/
+**/dist/
+**/.cache/
+
+# Env & secrets — NEVER commit these
+**/.env
+**/.env.*
+!**/.env.example
+
+# Strapi-specific
+backend/.tmp/
+backend/.strapi/
+backend/exports/
+backend/*.db
+
+# Misc
+.DS_Store
+**/*.pem
+**/*.log
+**/*.tsbuildinfo
+.vercel
+
+# Eugene-only meta — never commit (live locally only)
+/handoff.md
+/BOILERPLATE_AGENT_BRIEF.md
+/CHAT_HANDOFF.md
+/HARVEST_BREAKDOWN.md
+/HARVEST_IMPORT.csv
+/git-log.txt
+/frontend/ANIMATIONS.md
